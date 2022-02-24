@@ -25,11 +25,11 @@
 		$this->RegisterPropertyBoolean("DebugOutput",false);
 		
 		// Variables
-		$this->RegisterPropertyString("Hostname","Hostname");
-		$this->RegisterPropertyString("Model","Model");
-		$this->RegisterPropertyString("SerialNumber","Serial Number");
-		$this->RegisterPropertyString("BootcodeVersion","Bootcode Version");
-		$this->RegisterPropertyString("FirmwareVersion","Firmware Version");
+		$this->RegisterVariableString("Hostname","Hostname");
+		$this->RegisterVariableString("Model","Model");
+		$this->RegisterVariableString("SerialNumber","Serial Number");
+		$this->RegisterVariableString("BootcodeVersion","Bootcode Version");
+		$this->RegisterVariableString("FirmwareVersion","Firmware Version");
 
 		// Timer
 		$this->RegisterTimer("RefreshInformation", 0, 'PM3000_RefreshInformation($_IPS[\'TARGET\']);');
