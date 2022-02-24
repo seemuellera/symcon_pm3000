@@ -121,7 +121,7 @@
 	
 		$result = IPSSNMP_ReadSNMP($this->ReadPropertyInteger("SnmpInstance"), $oids);	
 		
-		if count($result == 0) {
+		if (count($result) == 0) {
 
 			$this-LogMessage("Unable to retrieve information via SNMP","CRIT");
 			$this->SetStatus(200);
