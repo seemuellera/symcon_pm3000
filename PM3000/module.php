@@ -125,11 +125,14 @@
 
 			$this-LogMessage("Unable to retrieve information via SNMP","CRIT");
 			$this->SetStatus(200);
+			return false;
 		}
 		else {
 
 			$this->SetStatus(102);
 		}
+
+		$this->LogMessage("Number of SNMP entries found: " . count($result), "DEBUG");
 
 		return $result;
 	}
