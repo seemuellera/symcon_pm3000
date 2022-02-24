@@ -118,7 +118,9 @@
 		
 		foreach ($oids as $varIdent => $varOid) {
 		
-			if (in_array($varIdent, $factors)) {
+			if (array_key_exists($varIdent, $factors)) {
+
+				$this->LogMessage("Using Conversion Factor " . $factors[$varIdent] . " for Ident $varIdent", "DEBUG");
 
 				SetValue($this->GetIDForIdent($varIdent), $result[$varOid] * $factors[$varIdent]);
 			}
