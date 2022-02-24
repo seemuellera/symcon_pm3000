@@ -30,6 +30,8 @@
 		$this->RegisterVariableString("SerialNumber","Serial Number");
 		$this->RegisterVariableString("BootcodeVersion","Bootcode Version");
 		$this->RegisterVariableString("FirmwareVersion","Firmware Version");
+		
+		$this->RegisterVariableFloat("InternalTemperature", "Internal Temperature Sensor", "~Temperature");
 
 		// Timer
 		$this->RegisterTimer("RefreshInformation", 0, 'PM3000_RefreshInformation($_IPS[\'TARGET\']);');
@@ -82,8 +84,11 @@
 		$oid_mapping_table['SerialNumber'] = '.1.3.6.1.4.1.10418.17.2.1.4.0';
 		$oid_mapping_table['BootcodeVersion'] = '.1.3.6.1.4.1.10418.17.2.1.6.0';
 		$oid_mapping_table['FirmwareVersion'] = '.1.3.6.1.4.1.10418.17.2.1.7.0';
+		$oid_mapping_table['InternalTemperature'] = '.1.3.6.1.4.1.10418.17.2.5.13.1.25.1.1.1';
 
-		$this->UpdateVariables($oid_mapping_table);
+		$factor_mapping_table['InternalTemperature'] = 0.1;
+
+		$this->UpdateVariables($oid_mapping_table, $factor_mapping_table);
 	}
 
 	// Version 1.0
@@ -107,15 +112,20 @@
 	}
 		
 	
-	protected function UpdateVariables($oids) {
+	protected function UpdateVariables($oids, $factors) {
 	
 		$result = $this->SnmpGet($oids);
-
-		var_dump($result);
 		
 		foreach ($oids as $varIdent => $varOid) {
 		
-			SetValue($this->GetIDForIdent($varIdent), $result[$varOid]);
+			if (in_array($varIdent, $factors)) {
+
+				SetValue($this->GetIDForIdent($varIdent), $result[$varOid] * $factors[$varIdent]);
+			}
+			else {
+			
+				SetValue($this->GetIDForIdent($varIdent), $result[$varOid]);
+			}
 		}
 	}
 
