@@ -77,11 +77,11 @@
         */
     public function RefreshInformation() {
 
-		$oid_mapping_table['Hostname'] = '.1.3.6.1.4.1.10418.17.2.1.1';
-		$oid_mapping_table['Model'] = '.1.3.6.1.4.1.10418.17.2.1.2';
-		$oid_mapping_table['SerialNumber'] = '.1.3.6.1.4.1.10418.17.2.1.4';
-		$oid_mapping_table['BootcodeVersion'] = '.1.3.6.1.4.1.10418.17.2.1.6';
-		$oid_mapping_table['FirmwareVersion'] = '.1.3.6.1.4.1.10418.17.2.1.6';
+		$oid_mapping_table['Hostname'] = '.1.3.6.1.4.1.10418.17.2.1.1.0';
+		$oid_mapping_table['Model'] = '.1.3.6.1.4.1.10418.17.2.1.2.0';
+		$oid_mapping_table['SerialNumber'] = '.1.3.6.1.4.1.10418.17.2.1.4.0';
+		$oid_mapping_table['BootcodeVersion'] = '.1.3.6.1.4.1.10418.17.2.1.6.0';
+		$oid_mapping_table['FirmwareVersion'] = '.1.3.6.1.4.1.10418.17.2.1.7.0';
 
 		$this->UpdateVariables($oid_mapping_table);
 	}
