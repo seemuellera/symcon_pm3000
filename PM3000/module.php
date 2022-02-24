@@ -33,10 +33,13 @@
 		
 		$this->RegisterVariableFloat("InternalTemperature", "Internal Temperature Sensor", "~Temperature");
 
+		$this->RegisterVariableInteger("NumberOfOutlets", "Number of Outlets");
+		$this->RegisterVariableInteger("ColdStartDelay", "Cold Start Delay", "~TimePeriodSec.KNX");
+
 		// Timer
 		$this->RegisterTimer("RefreshInformation", 0, 'PM3000_RefreshInformation($_IPS[\'TARGET\']);');
  
-        }
+    }
  
         // Überschreibt die intere IPS_ApplyChanges($id) Funktion
     public function ApplyChanges() {
@@ -85,6 +88,8 @@
 		$oid_mapping_table['BootcodeVersion'] = '.1.3.6.1.4.1.10418.17.2.1.6.0';
 		$oid_mapping_table['FirmwareVersion'] = '.1.3.6.1.4.1.10418.17.2.1.7.0';
 		$oid_mapping_table['InternalTemperature'] = '.1.3.6.1.4.1.10418.17.2.5.13.1.25.1.1.1';
+		$oid_mapping_table['NumberOfOutlets'] = '.1.3.6.1.4.1.10418.17.2.5.3.1.8.1.1';
+		$oid_mapping_table['ColdStartDelay'] = '.1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1';
 
 		$factor_mapping_table['InternalTemperature'] = 0.1;
 
