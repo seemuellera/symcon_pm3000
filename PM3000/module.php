@@ -110,6 +110,8 @@
 	protected function UpdateVariables($oids) {
 	
 		$result = $this->SnmpGet($oids);
+
+		var_dump($result);
 		
 		foreach ($oids as $varIdent => $varOid) {
 		
