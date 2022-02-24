@@ -1,0 +1,11 @@
+{
+    "id": "{5E22313D-8FF7-4F8C-ADDD-FAFB35FA1979}",
+    "name": "PM3000",
+    "type": 3,
+    "vendor": "",
+    "aliases": [],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "PM3000"
+}
