@@ -24,7 +24,7 @@ class PM3000 extends IPSModule {
 			Array("ident" => "NumberOfOutlets", 	"caption" => "Number of Outlets", 			"type" => "Integer", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.8.1.1', 	"factor" => false, 	"writeable" => false),
 			Array("ident" => "ColdStartDelay", 		"caption" => "Cold Start Delay", 			"type" => "Integer", 	"profile" => "~TimePeriodSec.KNX", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1', 	"factor" => false, 	"writeable" => true ),
 			Array("ident" => "TotalEnergy", 		"caption" => "Total Energy", 				"type" => "Integer", 	"profile" => "~ActiveEnergy.KNX", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.105.1.1', 	"factor" => false, 	"writeable" => false),
-			Array("ident" => "AlarmStatus", 		"caption" => "Alarm Status", 				"type" => "Integer", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.45.1.1', 	"factor" => false, 	"writeable" => false)
+			Array("ident" => "AlarmStatus", 		"caption" => "Alarm Status", 				"type" => "Integer", 	"profile" => "PM3000.AlarmState", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.45.1.1', 	"factor" => false, 	"writeable" => false)
 		);
 	}
  
@@ -39,7 +39,23 @@ class PM3000 extends IPSModule {
 		$this->RegisterPropertyInteger("RefreshInterval",0);
 		$this->RegisterPropertyInteger("SnmpInstance",0);
 		$this->RegisterPropertyBoolean("DebugOutput",false);
+
+		// Variable profiles
+		$variableProfileAlarmState = "PM3000.AlarmState";
+		if (IPS_VariableProfileExists($variableProfileAlarmState) ) {
 		
+			IPS_DeleteVariableProfile($variableProfileAlarmState);
+		}			
+		IPS_CreateVariableProfile($variableProfileAlarmState, 0);
+		IPS_SetVariableProfileIcon($variableProfileAlarmState, "Help");
+		IPS_SetVariableProfileAssociation($variableProfileAlarmState, 1, "Healthy", "", 0x00FF00);
+		IPS_SetVariableProfileAssociation($variableProfileAlarmState, 2, "Fuse blown", "", 0xFF0000);
+		IPS_SetVariableProfileAssociation($variableProfileAlarmState, 3, "Hardware Overcurrent Protection", "", 0xFF0000);
+		IPS_SetVariableProfileAssociation($variableProfileAlarmState, 4, "High Critical Threshold", "", 0xFF0000);
+		IPS_SetVariableProfileAssociation($variableProfileAlarmState, 5, "High Warning Threshold", "", 0xFFFF00);
+		IPS_SetVariableProfileAssociation($variableProfileAlarmState, 6, "Low Warning Threshold", "", 0xFFFF00);
+		IPS_SetVariableProfileAssociation($variableProfileAlarmState, 7, "Low Critical Threshold", "", 0xFF0000);
+	
 		// Variables
 		$stringVariables = $this->GetVariablesByType("String");
 		foreach ($stringVariables as $currentVariable) {
