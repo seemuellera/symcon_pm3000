@@ -98,13 +98,21 @@ class PM3000Outlet extends IPSModule {
 
 	public function RequestAction($Ident, $Value) {
 	
-	
-		switch ($Ident) {
-		
-			case "ColdStartDelay":
+		// Route values based on dynamic arrays
+		$writeableIdents = $this->GetWriteableVariableIdents();
+		if (count($writeableIdents) > 0) {
+
+			if (in_array($Ident, $writeableIdents)) {
+
 				$this->SetWriteableVariable($Ident, $Value);
 				SetValue($this->GetIDForIdent($Ident), $Value);
-				break;
+				return;
+			}
+		}
+	
+		// Fallback for static defined idents
+		switch ($Ident) {
+		
 			default:
 				$this->LogMessage("Invalid Ident: $Ident","CRIT");
 		}
