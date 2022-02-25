@@ -12,15 +12,19 @@ class PM3000 extends IPSModule {
 		// Selbsterstellter Code
 		// Define all the data
 		$this->snmpVariables = Array(
-			Array("ident" => "Hostname", 			"caption" => "Hostname", 					"type" => "String", "profile" => false, 			"oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', 			"factor" => false, 	"writeable" => false),
-			Array("ident" => "Model", 				"caption" => "Model", 						"type" => "String", "profile" => false, 			"oid" => '.1.3.6.1.4.1.10418.17.2.1.2.0', 			"factor" => false, 	"writeable" => false),
-			Array("ident" => "SerialNumber", 		"caption" => "Serial Number", 				"type" => "String", "profile" => false, 			"oid" => '.1.3.6.1.4.1.10418.17.2.1.4.0', 			"factor" => false, 	"writeable" => false),
-			Array("ident" => "BootcodeVersion", 	"caption" => "Bootcode Version", 			"type" => "String", "profile" => false, 			"oid" => '.1.3.6.1.4.1.10418.17.2.1.6.0', 			"factor" => false, 	"writeable" => false),
-			Array("ident" => "FirmwareVersion", 	"caption" => "Firmware Version", 			"type" => "String", "profile" => false, 			"oid" => '.1.3.6.1.4.1.10418.17.2.1.7.0', 			"factor" => false, 	"writeable" => false),
-			Array("ident" => "InternalTemperature", "caption" => "Internal Temperature Sensor",	"type" => "Float", 	"profile" => "~Temperature", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.13.1.25.1.1.1', "factor" => 0.1, 	"writeable" => false),
-			Array("ident" => "TotalCurrent", 		"caption" => "Total Current", 				"type" => "Float", 	"profile" => "~Ampere.16", 		"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.50.1.1', 	"factor" => 0.1, 	"writeable" => false),
-			Array("ident" => "TotalPower", 			"caption" => "Total Power", 				"type" => "Float", 	"profile" => "~Watt.3680", 		"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.60.1.1', 	"factor" => 0.1, 	"writeable" => false),
-			Array("ident" => "TotalVoltage", 		"caption" => "Total Voltage", 				"type" => "Float", 	"profile" => "~Volt.230", 		"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.70.1.1', 	"factor" => false, 	"writeable" => false),
+			Array("ident" => "Hostname", 			"caption" => "Hostname", 					"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "Model", 				"caption" => "Model", 						"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.1.2.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "SerialNumber", 		"caption" => "Serial Number", 				"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.1.4.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "BootcodeVersion", 	"caption" => "Bootcode Version", 			"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.1.6.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "FirmwareVersion", 	"caption" => "Firmware Version", 			"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.1.7.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "InternalTemperature", "caption" => "Internal Temperature Sensor",	"type" => "Float", 		"profile" => "~Temperature", 		"oid" => '.1.3.6.1.4.1.10418.17.2.5.13.1.25.1.1.1', "factor" => 0.1, 	"writeable" => false),
+			Array("ident" => "TotalCurrent", 		"caption" => "Total Current", 				"type" => "Float", 		"profile" => "~Ampere.16", 			"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.50.1.1', 	"factor" => 0.1, 	"writeable" => false),
+			Array("ident" => "TotalPower", 			"caption" => "Total Power", 				"type" => "Float", 		"profile" => "~Watt.3680", 			"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.60.1.1', 	"factor" => 0.1, 	"writeable" => false),
+			Array("ident" => "TotalVoltage", 		"caption" => "Total Voltage", 				"type" => "Float", 		"profile" => "~Volt.230", 			"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.70.1.1', 	"factor" => false, 	"writeable" => false),
+			Array("ident" => "NumberOfOutlets", 	"caption" => "Number of Outlets", 			"type" => "Integer", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.8.1.1', 	"factor" => false, 	"writeable" => false),
+			Array("ident" => "ColdStartDelay", 		"caption" => "Cold Start Delay", 			"type" => "Integer", 	"profile" => "~TimePeriodSec.KNX", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1', 	"factor" => false, 	"writeable" => true ),
+			Array("ident" => "TotalEnergy", 		"caption" => "Total Energy", 				"type" => "Integer", 	"profile" => "~ActiveEnergy.KNX", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.105.1.1', 	"factor" => false, 	"writeable" => false),
+			Array("ident" => "AlarmStatus", 		"caption" => "Alarm Status", 				"type" => "Integer", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.45.1.1', 	"factor" => false, 	"writeable" => false)
 		);
 	}
  
@@ -63,10 +67,19 @@ class PM3000 extends IPSModule {
 			}
 		}
 		
-		$this->RegisterVariableInteger("NumberOfOutlets", "Number of Outlets");
-		$this->RegisterVariableInteger("ColdStartDelay", "Cold Start Delay", "~TimePeriodSec.KNX");
-		$this->RegisterVariableInteger("TotalEnergy", "Total Energy", "~ActiveEnergy.KNX");
+		$stringVariables = $this->GetVariablesByType("Integer");
+		foreach ($stringVariables as $currentVariable) {
 
+			if ($currentVariable['profile']) {
+
+				$this->RegisterVariableInteger($currentVariable['ident'], $currentVariable['caption'], $currentVariable['profile']);
+			}
+			else {
+
+				$this->RegisterVariableInteger($currentVariable['ident'], $currentVariable['caption']);
+			}
+		}
+		
 		// Timer
 		$this->RegisterTimer("RefreshInformation", 0, 'PM3000_RefreshInformation($_IPS[\'TARGET\']);');
 
@@ -79,7 +92,11 @@ class PM3000 extends IPSModule {
 		$this->SetTimerInterval("RefreshInformation", $newInterval);
 
 		// Editable values
-		$this->EnableAction("ColdStartDelay");
+		$writeableIdents = $this->GetWriteableVariableIdents();
+		foreach ($writeableIdents as $currentIdent) {
+
+			$this->EnableAction($currentIdent);
+		}
 
 		// Diese Zeile nicht löschen
 		parent::ApplyChanges();
@@ -91,7 +108,7 @@ class PM3000 extends IPSModule {
 		switch ($Ident) {
 		
 			case "ColdStartDelay":
-				IPSSNMP_WriteSNMPbyOID($this->ReadPropertyInteger("SnmpInstance"), '.1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1', $Value, 'i');
+				$this->SetWriteableVariable($Ident, $Value);
 				SetValue($this->GetIDForIdent($Ident), $Value);
 				break;
 			default:
@@ -128,13 +145,8 @@ class PM3000 extends IPSModule {
         */
     public function RefreshInformation() {
 
-		$oid_mapping_table = $this->GetOidMappingTable();
-		$oid_mapping_table['NumberOfOutlets'] 		= '.1.3.6.1.4.1.10418.17.2.5.3.1.8.1.1';
-		$oid_mapping_table['ColdStartDelay'] 		= '.1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1';
-		// Add Alarm OID here
-		$oid_mapping_table['TotalEnergy'] 			= '.1.3.6.1.4.1.10418.17.2.5.3.1.105.1.1';
-
-		$factor_mapping_table = $this->GetFactorMappingTable();
+		$oid_mapping_table 		= $this->GetOidMappingTable();
+		$factor_mapping_table 	= $this->GetFactorMappingTable();
 
 		$this->UpdateVariables($oid_mapping_table, $factor_mapping_table);
 	}
@@ -239,5 +251,41 @@ class PM3000 extends IPSModule {
 		}
 
 		return $mappingTable;
+	}
+
+	protected function GetWriteableVariableIdents() {
+
+		$idents = Array();
+
+		foreach ($this->snmpVariables as $currentVariable) {
+		
+			if ($currentVariable['writeable']) {
+			
+				$idents = $currentVariable['ident'];
+			}
+		}
+
+		return $idents;
+	}
+
+	protected function SetWriteableVariable($ident, $value) {
+
+		foreach ($this->snmpVariables as $currentVariable) {
+		
+			if ($currentVariable['ident'] == $ident) {
+			
+				$oid = $currentVariable['oid'];
+				if ($currentVariable['type'] == 'String') {
+					
+					$type = 's';
+				}
+				else {
+
+					$type = 'i';
+				}
+			}
+		}
+
+		IPSSNMP_WriteSNMPbyOID($this->ReadPropertyInteger("SnmpInstance"), $oid, $value, $type);		
 	}
 }
