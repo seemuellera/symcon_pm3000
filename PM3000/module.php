@@ -36,6 +36,8 @@ class PM3000 extends IPSModule {
 		$stringVariables = $this->GetVariablesByType("String");
 		foreach ($stringVariables as $currentVariable) {
 
+			var_dump($currentVariable);
+
 			if ($currentVariable['profile']) {
 
 				$this->RegisterVariableString($currentVariable['ident'], $currentVariable['caption'], $currentVariable['profile']);
@@ -201,9 +203,7 @@ class PM3000 extends IPSModule {
 
 			if($currentVariable['type'] == $type) {
 
-				$variables[]['ident'] 	= $currentVariable['ident'];
-				$variables[]['caption'] = $currentVariable['caption'];
-				$variables[]['profile'] = $currentVariable['profile'];
+				$variables[] = $currentVariable;
 			}
 		}
 
@@ -216,7 +216,7 @@ class PM3000 extends IPSModule {
 
 		foreach ($this->snmpVariables as $currentVariable) {
 		
-			$mappingTable[$currentVariable['idnet']] = $currentVariable['oid'];
+			$mappingTable[$currentVariable['ident']] = $currentVariable['oid'];
 		}
 
 		return $mappingTable;
