@@ -12,11 +12,11 @@ class PM3000 extends IPSModule {
 		// Selbsterstellter Code
 		// Define all the data
 		$this->snmpVariables = Array(
-			Array("ident" => "Hostname", 			"caption" => "Hostname", 			"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" = false),
-			Array("ident" => "Model", 				"caption" => "Model", 				"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" = false),
-			Array("ident" => "SerialNumber", 		"caption" => "Serial Number", 		"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" = false),
-			Array("ident" => "BootcodeVersion", 	"caption" => "Bootcode Version", 	"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" = false),
-			Array("ident" => "FirmwareVersion", 	"caption" => "Firmware Version", 	"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" = false)
+			Array("ident" => "Hostname", 			"caption" => "Hostname", 			"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" => false),
+			Array("ident" => "Model", 				"caption" => "Model", 				"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" => false),
+			Array("ident" => "SerialNumber", 		"caption" => "Serial Number", 		"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" => false),
+			Array("ident" => "BootcodeVersion", 	"caption" => "Bootcode Version", 	"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" => false),
+			Array("ident" => "FirmwareVersion", 	"caption" => "Firmware Version", 	"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" => false)
 		);
 	}
  
