@@ -12,11 +12,15 @@ class PM3000 extends IPSModule {
 		// Selbsterstellter Code
 		// Define all the data
 		$this->snmpVariables = Array(
-			Array("ident" => "Hostname", 			"caption" => "Hostname", 			"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" => false),
-			Array("ident" => "Model", 				"caption" => "Model", 				"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" => false),
-			Array("ident" => "SerialNumber", 		"caption" => "Serial Number", 		"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" => false),
-			Array("ident" => "BootcodeVersion", 	"caption" => "Bootcode Version", 	"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" => false),
-			Array("ident" => "FirmwareVersion", 	"caption" => "Firmware Version", 	"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" => false)
+			Array("ident" => "Hostname", 			"caption" => "Hostname", 					"type" => "String", "profile" => false, 			"oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "Model", 				"caption" => "Model", 						"type" => "String", "profile" => false, 			"oid" => '.1.3.6.1.4.1.10418.17.2.1.2.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "SerialNumber", 		"caption" => "Serial Number", 				"type" => "String", "profile" => false, 			"oid" => '.1.3.6.1.4.1.10418.17.2.1.4.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "BootcodeVersion", 	"caption" => "Bootcode Version", 			"type" => "String", "profile" => false, 			"oid" => '.1.3.6.1.4.1.10418.17.2.1.6.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "FirmwareVersion", 	"caption" => "Firmware Version", 			"type" => "String", "profile" => false, 			"oid" => '.1.3.6.1.4.1.10418.17.2.1.7.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "InternalTemperature", "caption" => "Internal Temperature Sensor",	"type" => "Float", 	"profile" => "~Temperature", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.13.1.25.1.1.1', "factor" => 0.1, 	"writeable" => false),
+			Array("ident" => "TotalCurrent", 		"caption" => "Total Current", 				"type" => "Float", 	"profile" => "~Ampere.16", 		"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.50.1.1', 	"factor" => 0.1, 	"writeable" => false),
+			Array("ident" => "TotalPower", 			"caption" => "Total Power", 				"type" => "Float", 	"profile" => "~Watt.3680", 		"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.60.1.1', 	"factor" => 0.1, 	"writeable" => false),
+			Array("ident" => "TotalVoltage", 		"caption" => "Total Voltage", 				"type" => "Float", 	"profile" => "~Volt.230", 		"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.70.1.1', 	"factor" => false, 	"writeable" => false),
 		);
 	}
  
@@ -45,12 +49,20 @@ class PM3000 extends IPSModule {
 				$this->RegisterVariableString($currentVariable['ident'], $currentVariable['caption']);
 			}
 		}
-		
-		$this->RegisterVariableFloat("InternalTemperature", "Internal Temperature Sensor", "~Temperature");
-		$this->RegisterVariableFloat("TotalCurrent", "Total Current", "~Ampere.16");
-		$this->RegisterVariableFloat("TotalPower", "Total Power", "~Watt.3680");
-		$this->RegisterVariableFloat("TotalVoltage", "Total Voltage", "~Volt.230");
 
+		$stringVariables = $this->GetVariablesByType("Float");
+		foreach ($stringVariables as $currentVariable) {
+
+			if ($currentVariable['profile']) {
+
+				$this->RegisterVariableFloat($currentVariable['ident'], $currentVariable['caption'], $currentVariable['profile']);
+			}
+			else {
+
+				$this->RegisterVariableFloat($currentVariable['ident'], $currentVariable['caption']);
+			}
+		}
+		
 		$this->RegisterVariableInteger("NumberOfOutlets", "Number of Outlets");
 		$this->RegisterVariableInteger("ColdStartDelay", "Cold Start Delay", "~TimePeriodSec.KNX");
 		$this->RegisterVariableInteger("TotalEnergy", "Total Energy", "~ActiveEnergy.KNX");
@@ -117,18 +129,12 @@ class PM3000 extends IPSModule {
     public function RefreshInformation() {
 
 		$oid_mapping_table = $this->GetOidMappingTable();
-		$oid_mapping_table['InternalTemperature'] 	= '.1.3.6.1.4.1.10418.17.2.5.13.1.25.1.1.1';
 		$oid_mapping_table['NumberOfOutlets'] 		= '.1.3.6.1.4.1.10418.17.2.5.3.1.8.1.1';
 		$oid_mapping_table['ColdStartDelay'] 		= '.1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1';
 		// Add Alarm OID here
-		$oid_mapping_table['TotalCurrent'] 			= '.1.3.6.1.4.1.10418.17.2.5.3.1.50.1.1';
-		$oid_mapping_table['TotalPower'] 			= '.1.3.6.1.4.1.10418.17.2.5.3.1.60.1.1';
-		$oid_mapping_table['TotalVoltage'] 			= '.1.3.6.1.4.1.10418.17.2.5.3.1.70.1.1';
 		$oid_mapping_table['TotalEnergy'] 			= '.1.3.6.1.4.1.10418.17.2.5.3.1.105.1.1';
 
-		$factor_mapping_table['InternalTemperature'] 	= 0.1;
-		$factor_mapping_table['TotalCurrent'] 			= 0.1;
-		$factor_mapping_table['TotalPower'] 			= 0.1;
+		$factor_mapping_table = $this->GetFactorMappingTable();
 
 		$this->UpdateVariables($oid_mapping_table, $factor_mapping_table);
 	}
@@ -215,6 +221,18 @@ class PM3000 extends IPSModule {
 		foreach ($this->snmpVariables as $currentVariable) {
 		
 			$mappingTable[$currentVariable['ident']] = $currentVariable['oid'];
+		}
+
+		return $mappingTable;
+	}
+
+	protected function GetFactorMappingTable() {
+
+		$mappingTable = Array();
+
+		foreach ($this->snmpVariables as $currentVariable) {
+		
+			$mappingTable[$currentVariable['ident']] = $currentVariable['factor'];
 		}
 
 		return $mappingTable;
