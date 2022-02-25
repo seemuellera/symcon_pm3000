@@ -36,8 +36,6 @@ class PM3000 extends IPSModule {
 		$stringVariables = $this->GetVariablesByType("String");
 		foreach ($stringVariables as $currentVariable) {
 
-			var_dump($currentVariable);
-
 			if ($currentVariable['profile']) {
 
 				$this->RegisterVariableString($currentVariable['ident'], $currentVariable['caption'], $currentVariable['profile']);
