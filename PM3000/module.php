@@ -232,7 +232,10 @@ class PM3000 extends IPSModule {
 
 		foreach ($this->snmpVariables as $currentVariable) {
 		
-			$mappingTable[$currentVariable['ident']] = $currentVariable['factor'];
+			if ($currentVariable['factor']) {
+			
+				$mappingTable[$currentVariable['ident']] = $currentVariable['factor'];
+			}
 		}
 
 		return $mappingTable;
