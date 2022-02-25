@@ -46,7 +46,7 @@ class PM3000 extends IPSModule {
 		
 			IPS_DeleteVariableProfile($variableProfileAlarmState);
 		}			
-		IPS_CreateVariableProfile($variableProfileAlarmState, 0);
+		IPS_CreateVariableProfile($variableProfileAlarmState, 1);
 		IPS_SetVariableProfileIcon($variableProfileAlarmState, "Help");
 		IPS_SetVariableProfileAssociation($variableProfileAlarmState, 1, "Healthy", "", 0x00FF00);
 		IPS_SetVariableProfileAssociation($variableProfileAlarmState, 2, "Fuse blown", "", 0xFF0000);
