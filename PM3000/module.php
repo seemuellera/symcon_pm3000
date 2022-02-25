@@ -32,9 +32,13 @@
 		$this->RegisterVariableString("FirmwareVersion","Firmware Version");
 		
 		$this->RegisterVariableFloat("InternalTemperature", "Internal Temperature Sensor", "~Temperature");
+		$this->RegisterVariableFloat("TotalCurrent", "Total Current", "~Ampere.16");
+		$this->RegisterVariableFloat("TotalPower", "Total Power", "~Watt.3680");
+		$this->RegisterVariableFloat("TotalVoltage", "Total Voltage", "~Volt.230");
 
 		$this->RegisterVariableInteger("NumberOfOutlets", "Number of Outlets");
 		$this->RegisterVariableInteger("ColdStartDelay", "Cold Start Delay", "~TimePeriodSec.KNX");
+		$this->RegisterVariableInteger("TotalEnergy", "Total Energy", "~ActiveEnergy.KNX");
 
 		// Timer
 		$this->RegisterTimer("RefreshInformation", 0, 'PM3000_RefreshInformation($_IPS[\'TARGET\']);');
@@ -82,16 +86,23 @@
         */
     public function RefreshInformation() {
 
-		$oid_mapping_table['Hostname'] = '.1.3.6.1.4.1.10418.17.2.1.1.0';
-		$oid_mapping_table['Model'] = '.1.3.6.1.4.1.10418.17.2.1.2.0';
-		$oid_mapping_table['SerialNumber'] = '.1.3.6.1.4.1.10418.17.2.1.4.0';
-		$oid_mapping_table['BootcodeVersion'] = '.1.3.6.1.4.1.10418.17.2.1.6.0';
-		$oid_mapping_table['FirmwareVersion'] = '.1.3.6.1.4.1.10418.17.2.1.7.0';
-		$oid_mapping_table['InternalTemperature'] = '.1.3.6.1.4.1.10418.17.2.5.13.1.25.1.1.1';
-		$oid_mapping_table['NumberOfOutlets'] = '.1.3.6.1.4.1.10418.17.2.5.3.1.8.1.1';
-		$oid_mapping_table['ColdStartDelay'] = '.1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1';
+		$oid_mapping_table['Hostname'] 				= '.1.3.6.1.4.1.10418.17.2.1.1.0';
+		$oid_mapping_table['Model'] 				= '.1.3.6.1.4.1.10418.17.2.1.2.0';
+		$oid_mapping_table['SerialNumber'] 			= '.1.3.6.1.4.1.10418.17.2.1.4.0';
+		$oid_mapping_table['BootcodeVersion'] 		= '.1.3.6.1.4.1.10418.17.2.1.6.0';
+		$oid_mapping_table['FirmwareVersion'] 		= '.1.3.6.1.4.1.10418.17.2.1.7.0';
+		$oid_mapping_table['InternalTemperature'] 	= '.1.3.6.1.4.1.10418.17.2.5.13.1.25.1.1.1';
+		$oid_mapping_table['NumberOfOutlets'] 		= '.1.3.6.1.4.1.10418.17.2.5.3.1.8.1.1';
+		$oid_mapping_table['ColdStartDelay'] 		= '.1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1';
+		// Add Alarm OID here
+		$oid_mapping_table['TotalCurrent'] 			= '.1.3.6.1.4.1.10418.17.2.5.3.1.50.1.1';
+		$oid_mapping_table['TotalPower'] 			= '.1.3.6.1.4.1.10418.17.2.5.3.1.60.1.1';
+		$oid_mapping_table['TotalVoltage'] 			= '.1.3.6.1.4.1.10418.17.2.5.3.1.70.1.1';
+		$oid_mapping_table['TotalEnergy'] 			= '.1.3.6.1.4.1.10418.17.2.5.3.1.105.1.1';
 
-		$factor_mapping_table['InternalTemperature'] = 0.1;
+		$factor_mapping_table['InternalTemperature'] 	= 0.1;
+		$factor_mapping_table['TotalCurrent'] 			= 0.1;
+		$factor_mapping_table['TotalPower'] 			= 0.1;
 
 		$this->UpdateVariables($oid_mapping_table, $factor_mapping_table);
 	}
