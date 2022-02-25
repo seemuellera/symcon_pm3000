@@ -15,7 +15,7 @@ class PM3000Outlet extends IPSModule {
 			Array("ident" => "Name", 			"caption" => "Name", 					"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.4.1.1', 	"factor" => false, 	"writeable" => false),
 			Array("ident" => "PostOnDelay", 	"caption" => "Post On Delay", 			"type" => "Integer", 	"profile" => "~TimePeriodSec.KNX", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.9.1.1', 	"factor" => 0.1, 	"writeable" => true ),
 			Array("ident" => "PostOffDelay", 	"caption" => "Post Off Delay", 			"type" => "Integer", 	"profile" => "~TimePeriodSec.KNX", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.10.1.1', 	"factor" => 0.1, 	"writeable" => true ),
-			Array("ident" => "AlarmStatus", 	"caption" => "Alarm Status", 			"type" => "Integer", 	"profile" => "PM3000.AlarmStatus", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.45.1.1', 	"factor" => false, 	"writeable" => false),
+			Array("ident" => "AlarmStatus", 	"caption" => "Alarm Status", 			"type" => "Integer", 	"profile" => "PM3000.AlarmState", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.45.1.1', 	"factor" => false, 	"writeable" => false),
 			Array("ident" => "Current", 		"caption" => "Current", 				"type" => "Float", 		"profile" => "~Ampere.16", 			"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.50.1.1', 	"factor" => 0.1, 	"writeable" => false),
 			Array("ident" => "Power", 			"caption" => "Power", 					"type" => "Float", 		"profile" => "~Watt.3680", 			"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.60.1.1', 	"factor" => 0.1, 	"writeable" => false),
 			Array("ident" => "Voltage", 		"caption" => "Voltage", 				"type" => "Float", 		"profile" => "~Volt.230", 			"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.70.1.1', 	"factor" => false, 	"writeable" => false),
