@@ -1,22 +1,30 @@
 <?php
 
-    // Klassendefinition
-    class PM3000 extends IPSModule {
+// Klassendefinition
+class PM3000 extends IPSModule {
  
-        // Der Konstruktor des Moduls
-        // Überschreibt den Standard Kontruktor von IPS
-        public function __construct($InstanceID) {
-            // Diese Zeile nicht löschen
-            parent::__construct($InstanceID);
+	// Der Konstruktor des Moduls
+	// Überschreibt den Standard Kontruktor von IPS
+	public function __construct($InstanceID) {
+		// Diese Zeile nicht löschen
+		parent::__construct($InstanceID);
+
+		// Selbsterstellter Code
+		// Define all the data
+		$this->snmpVariables = Array(
+			Array("ident" => "Hostname", 			"caption" => "Hostname", 			"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" = false),
+			Array("ident" => "Model", 				"caption" => "Model", 				"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" = false),
+			Array("ident" => "SerialNumber", 		"caption" => "Serial Number", 		"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" = false),
+			Array("ident" => "BootcodeVersion", 	"caption" => "Bootcode Version", 	"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" = false),
+			Array("ident" => "FirmwareVersion", 	"caption" => "Firmware Version", 	"type" => "String", "profile" => false, "oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', "factor" => "", "writeable" = false)
+		);
+	}
  
-            // Selbsterstellter Code
-        }
- 
-        // Überschreibt die interne IPS_Create($id) Funktion
-        public function Create() {
-            
+	// Überschreibt die interne IPS_Create($id) Funktion
+	public function Create() {
+		
 		// Diese Zeile nicht löschen.
-            	parent::Create();
+		parent::Create();
 
 		// Properties
 		$this->RegisterPropertyString("Sender","PM3000");
@@ -25,11 +33,18 @@
 		$this->RegisterPropertyBoolean("DebugOutput",false);
 		
 		// Variables
-		$this->RegisterVariableString("Hostname","Hostname");
-		$this->RegisterVariableString("Model","Model");
-		$this->RegisterVariableString("SerialNumber","Serial Number");
-		$this->RegisterVariableString("BootcodeVersion","Bootcode Version");
-		$this->RegisterVariableString("FirmwareVersion","Firmware Version");
+		$stringVariables = $this->GetVariablesByType("String");
+		foreach ($stringVariables as $currentVariable) {
+
+			if ($currentVariable['profile']) {
+
+				$this->RegisterVariableString($currentVariable['ident'], $currentVariable['caption'], $currentVariable['profile']);
+			}
+			else {
+
+				$this->RegisterVariableString($currentVariable['ident'], $currentVariable['caption']);
+			}
+		}
 		
 		$this->RegisterVariableFloat("InternalTemperature", "Internal Temperature Sensor", "~Temperature");
 		$this->RegisterVariableFloat("TotalCurrent", "Total Current", "~Ampere.16");
@@ -42,9 +57,9 @@
 
 		// Timer
 		$this->RegisterTimer("RefreshInformation", 0, 'PM3000_RefreshInformation($_IPS[\'TARGET\']);');
- 
-    }
- 
+
+	}
+
         // Überschreibt die intere IPS_ApplyChanges($id) Funktion
     public function ApplyChanges() {
 
@@ -101,11 +116,7 @@
         */
     public function RefreshInformation() {
 
-		$oid_mapping_table['Hostname'] 				= '.1.3.6.1.4.1.10418.17.2.1.1.0';
-		$oid_mapping_table['Model'] 				= '.1.3.6.1.4.1.10418.17.2.1.2.0';
-		$oid_mapping_table['SerialNumber'] 			= '.1.3.6.1.4.1.10418.17.2.1.4.0';
-		$oid_mapping_table['BootcodeVersion'] 		= '.1.3.6.1.4.1.10418.17.2.1.6.0';
-		$oid_mapping_table['FirmwareVersion'] 		= '.1.3.6.1.4.1.10418.17.2.1.7.0';
+		$oid_mapping_table = $this->GetOidMappingTable();
 		$oid_mapping_table['InternalTemperature'] 	= '.1.3.6.1.4.1.10418.17.2.5.13.1.25.1.1.1';
 		$oid_mapping_table['NumberOfOutlets'] 		= '.1.3.6.1.4.1.10418.17.2.5.3.1.8.1.1';
 		$oid_mapping_table['ColdStartDelay'] 		= '.1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1';
@@ -182,4 +193,32 @@
 		return $result;
 	}
 
+	protected function GetVariablesByType($type) {
+
+		$variables = Array();
+
+		foreach ($this->snmpVariables as $currentVariable) {
+
+			if($currentVariable['type'] == $type) {
+
+				$variables[]['ident'] 	= $currentVariable['ident'];
+				$variables[]['caption'] = $currentVariable['caption'];
+				$variables[]['profile'] = $currentVariable['profile'];
+			}
+		}
+
+		return $variables;
+	}
+
+	protected function GetOidMappingTable() {
+
+		$mappingTable = Array();
+
+		foreach ($this->snmpVariables as $currentVariable) {
+		
+			$mappingTable[$currentVariable['idnet']] = $currentVariable['oid'];
+		}
+
+		return $mappingTable;
+	}
 }
