@@ -264,7 +264,7 @@ class PM3000 extends IPSModule {
 		
 			if ($currentVariable['writeable']) {
 			
-				$idents = $currentVariable['ident'];
+				$idents[] = $currentVariable['ident'];
 			}
 		}
 
