@@ -20,6 +20,8 @@ class PM3000Outlet extends IPSModule {
 			Array("ident" => "Power", 			"caption" => "Power", 					"type" => "Float", 		"profile" => "~Watt.3680", 			"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.60.1.1', 	"factor" => 0.1, 	"writeable" => false),
 			Array("ident" => "Voltage", 		"caption" => "Voltage", 				"type" => "Float", 		"profile" => "~Volt.230", 			"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.70.1.1', 	"factor" => false, 	"writeable" => false),
 			Array("ident" => "Energy", 			"caption" => "Energy", 					"type" => "Integer", 	"profile" => "~ActiveEnergy.KNX", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.105.1.1', 	"factor" => false, 	"writeable" => false),
+			Array("ident" => "PowerStatus", 	"caption" => "Power Status", 			"type" => "Integer", 	"profile" => "PM3000.PowerStatus", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.5.1.1', 	"factor" => false, 	"writeable" => false),
+			Array("ident" => "PowerControl", 	"caption" => "Power Control", 			"type" => "Integer", 	"profile" => "PM3000.PowerControl", "oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.6.1.1', 	"factor" => false, 	"writeable" => true )
 		);
 	}
  
@@ -35,6 +37,40 @@ class PM3000Outlet extends IPSModule {
 		$this->RegisterPropertyInteger("SnmpInstance",0);
 		$this->RegisterPropertyInteger("OutletIndex",0);
 		$this->RegisterPropertyBoolean("DebugOutput",false);
+
+		// Variable profiles
+		$variableProfilePowerStatus = "PM3000.PowerStatus";
+		if (IPS_VariableProfileExists($variableProfilePowerStatus) ) {
+		
+			IPS_DeleteVariableProfile($variableProfilePowerStatus);
+		}			
+		IPS_CreateVariableProfile($variableProfilePowerStatus, 1);
+		IPS_SetVariableProfileIcon($variableProfilePowerStatus, "Electricity");
+		IPS_SetVariableProfileAssociation($variableProfilePowerStatus, 1, "Off", "", -1);
+		IPS_SetVariableProfileAssociation($variableProfilePowerStatus, 2, "On", "", 0x00FF00);
+		IPS_SetVariableProfileAssociation($variableProfilePowerStatus, 3, "Off / Locked", "", -1);
+		IPS_SetVariableProfileAssociation($variableProfilePowerStatus, 4, "On / Locked", "", 0x00FF00);
+		IPS_SetVariableProfileAssociation($variableProfilePowerStatus, 5, "Off / Cycling", "", -1);
+		IPS_SetVariableProfileAssociation($variableProfilePowerStatus, 6, "On / Pending Off", "", 0x00FF00);
+		IPS_SetVariableProfileAssociation($variableProfilePowerStatus, 7, "Off / Pending On", "", -1);
+		IPS_SetVariableProfileAssociation($variableProfilePowerStatus, 8, "On / Pending Cycle", "", 0x00FF00);
+		IPS_SetVariableProfileAssociation($variableProfilePowerStatus, 10, "On / Fixed", "", 0x00FF00);
+		IPS_SetVariableProfileAssociation($variableProfilePowerStatus, 11, "Off / Shutdown", "", -1);
+		IPS_SetVariableProfileAssociation($variableProfilePowerStatus, 12, "Tripped", "", 0xFF0000);
+
+		$variableProfilePowerControl = "PM3000.PowerControl";
+		if (IPS_VariableProfileExists($variableProfilePowerControl) ) {
+		
+			IPS_DeleteVariableProfile($variableProfilePowerControl);
+		}			
+		IPS_CreateVariableProfile($variableProfilePowerControl, 1);
+		IPS_SetVariableProfileIcon($variableProfilePowerControl, "Power");
+		IPS_SetVariableProfileAssociation($variableProfilePowerControl, 1, "No Action", "", -1);
+		IPS_SetVariableProfileAssociation($variableProfilePowerControl, 2, "Power On", "", 0x00FF00);
+		IPS_SetVariableProfileAssociation($variableProfilePowerControl, 3, "Power Off", "", 0xFF0000);
+		IPS_SetVariableProfileAssociation($variableProfilePowerControl, 4, "Power Cycle", "", 0xFFFF00);
+		IPS_SetVariableProfileAssociation($variableProfilePowerControl, 5, "Lock Outlet", "", -1);
+		IPS_SetVariableProfileAssociation($variableProfilePowerControl, 6, "Unlock Outlet", "", -1);
 	
 		// Variables
 		$stringVariables = $this->GetVariablesByType("String");
