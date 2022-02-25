@@ -93,9 +93,12 @@ class PM3000 extends IPSModule {
 
 		// Editable values
 		$writeableIdents = $this->GetWriteableVariableIdents();
-		foreach ($writeableIdents as $currentIdent) {
+		if (count($writeableIdents) > 0) {
 
-			$this->EnableAction($currentIdent);
+			foreach ($writeableIdents as $currentIdent) {
+
+				$this->EnableAction($currentIdent);
+			}
 		}
 
 		// Diese Zeile nicht löschen
