@@ -51,11 +51,26 @@
 		$newInterval = $this->ReadPropertyInteger("RefreshInterval") * 1000;
 		$this->SetTimerInterval("RefreshInformation", $newInterval);
 
+		// Editable values
+		$this->EnableAction("ColdStartDelay");
 
 		// Diese Zeile nicht löschen
 		parent::ApplyChanges();
 	}
 
+	public function RequestAction($Ident, $Value) {
+	
+	
+		switch ($Ident) {
+		
+			case "ColdStartDelay":
+				IPSSNMP_WriteSNMPbyOID($this->ReadPropertyInteger("SnmpInstance"), '.1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1', $Value, 'i');
+				SetValue($this->GetIDForIdent($Ident), $Value);
+				break;
+			default:
+				$this->LogMessage("Invalid Ident: $Ident","CRIT");
+		}
+	}
 
 	public function GetConfigurationForm() {
 
