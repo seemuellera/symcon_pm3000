@@ -147,7 +147,6 @@ class PM3000Outlet extends IPSModule {
 
 				$this->SetWriteableVariable($Ident, $Value);
 				SetValue($this->GetIDForIdent($Ident), $Value);
-				return;
 			}
 		}
 	
@@ -157,6 +156,9 @@ class PM3000Outlet extends IPSModule {
 			default:
 				$this->LogMessage("Invalid Ident: $Ident","CRIT");
 		}
+
+		// Refresh after changing something
+		$this->RefreshInformation();
 	}
 
 	public function GetConfigurationForm() {
