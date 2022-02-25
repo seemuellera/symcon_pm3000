@@ -1,0 +1,11 @@
+{
+    "id": "{E1EA584B-9EB4-4F5D-A4A9-DF84C445758C}",
+    "name": "PM3000Outlet",
+    "type": 3,
+    "vendor": "",
+    "aliases": [],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "PM3000OUTLET"
+}
