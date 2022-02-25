@@ -12,7 +12,9 @@ class PM3000Outlet extends IPSModule {
 		// Selbsterstellter Code
 		// Define all the data
 		$this->snmpVariables = Array(
-			Array("ident" => "Name", 			"caption" => "Name", 					"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.4.1.1', 			"factor" => false, 	"writeable" => false)
+			Array("ident" => "Name", 			"caption" => "Name", 					"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.4.1.1', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "PostOnDelay", 	"caption" => "Post On Delay", 			"type" => "String", 	"profile" => "~TimePeriodSec.KNX", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.9.1.1', 			"factor" => 0.1, 	"writeable" => true),
+			Array("ident" => "PostOffDelay", 	"caption" => "Post Off Delay", 			"type" => "String", 	"profile" => "~TimePeriodSec.KNX", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.5.1.10.1.1', 			"factor" => 0.1, 	"writeable" => true)
 		);
 	}
  
@@ -275,6 +277,10 @@ class PM3000Outlet extends IPSModule {
 				else {
 
 					$type = 'i';
+				}
+				if ($currentVariable['factor']) {
+
+					$value = $value * (1 / $currentVariable['factor']);
 				}
 			}
 		}
