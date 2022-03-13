@@ -216,7 +216,7 @@ class PM3000 extends IPSModule {
 		
 		if (count($result) == 0) {
 
-			$this-LogMessage("Unable to retrieve information via SNMP","CRIT");
+			$this->LogMessage("Unable to retrieve information via SNMP","CRIT");
 			$this->SetStatus(200);
 			return false;
 		}
