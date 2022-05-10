@@ -157,11 +157,6 @@ class PM3000 extends IPSModule {
 
 	}
 
-
-        /**
-	* Get the list of robots linked to this profile and modifies the Select list to allow the user to select them.
-        *
-        */
     public function RefreshInformation() {
 
 		$oid_mapping_table 		= $this->GetOidMappingTable();
