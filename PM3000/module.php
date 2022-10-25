@@ -12,19 +12,19 @@ class PM3000 extends IPSModule {
 		// Selbsterstellter Code
 		// Define all the data
 		$this->snmpVariables = Array(
-			Array("ident" => "Hostname", 			"caption" => "Hostname", 					"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.1.1.0', 			"factor" => false, 	"writeable" => false),
-			Array("ident" => "Model", 				"caption" => "Model", 						"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.1.2.0', 			"factor" => false, 	"writeable" => false),
-			Array("ident" => "SerialNumber", 		"caption" => "Serial Number", 				"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.1.4.0', 			"factor" => false, 	"writeable" => false),
-			Array("ident" => "BootcodeVersion", 	"caption" => "Bootcode Version", 			"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.1.6.0', 			"factor" => false, 	"writeable" => false),
-			Array("ident" => "FirmwareVersion", 	"caption" => "Firmware Version", 			"type" => "String", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.1.7.0', 			"factor" => false, 	"writeable" => false),
-			Array("ident" => "InternalTemperature", "caption" => "Internal Temperature Sensor",	"type" => "Float", 		"profile" => "~Temperature", 		"oid" => '.1.3.6.1.4.1.10418.17.2.5.13.1.25.1.1.1', "factor" => 0.1, 	"writeable" => false),
-			Array("ident" => "TotalCurrent", 		"caption" => "Total Current", 				"type" => "Float", 		"profile" => "~Ampere.16", 			"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.50.1.1', 	"factor" => 0.1, 	"writeable" => false),
-			Array("ident" => "TotalPower", 			"caption" => "Total Power", 				"type" => "Float", 		"profile" => "~Watt.3680", 			"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.60.1.1', 	"factor" => 0.1, 	"writeable" => false),
-			Array("ident" => "TotalVoltage", 		"caption" => "Total Voltage", 				"type" => "Float", 		"profile" => "~Volt.230", 			"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.70.1.1', 	"factor" => false, 	"writeable" => false),
-			Array("ident" => "NumberOfOutlets", 	"caption" => "Number of Outlets", 			"type" => "Integer", 	"profile" => false, 				"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.8.1.1', 	"factor" => false, 	"writeable" => false),
-			Array("ident" => "ColdStartDelay", 		"caption" => "Cold Start Delay", 			"type" => "Integer", 	"profile" => "~TimePeriodSec.KNX", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1', 	"factor" => false, 	"writeable" => true ),
-			Array("ident" => "TotalEnergy", 		"caption" => "Total Energy", 				"type" => "Integer", 	"profile" => "~ActiveEnergy.KNX", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.105.1.1', 	"factor" => false, 	"writeable" => false),
-			Array("ident" => "AlarmStatus", 		"caption" => "Alarm Status", 				"type" => "Integer", 	"profile" => "PM3000.AlarmState", 	"oid" => '.1.3.6.1.4.1.10418.17.2.5.3.1.45.1.1', 	"factor" => false, 	"writeable" => false)
+			Array("ident" => "Hostname", 			"caption" => "Hostname", 					"type" => "String", 	"profile" => false, 				"oid" => '1.3.6.1.4.1.10418.17.2.1.1.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "Model", 				"caption" => "Model", 						"type" => "String", 	"profile" => false, 				"oid" => '1.3.6.1.4.1.10418.17.2.1.2.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "SerialNumber", 		"caption" => "Serial Number", 				"type" => "String", 	"profile" => false, 				"oid" => '1.3.6.1.4.1.10418.17.2.1.4.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "BootcodeVersion", 	"caption" => "Bootcode Version", 			"type" => "String", 	"profile" => false, 				"oid" => '1.3.6.1.4.1.10418.17.2.1.6.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "FirmwareVersion", 	"caption" => "Firmware Version", 			"type" => "String", 	"profile" => false, 				"oid" => '1.3.6.1.4.1.10418.17.2.1.7.0', 			"factor" => false, 	"writeable" => false),
+			Array("ident" => "InternalTemperature", "caption" => "Internal Temperature Sensor",	"type" => "Float", 		"profile" => "~Temperature", 		"oid" => '1.3.6.1.4.1.10418.17.2.5.13.1.25.1.1.1', "factor" => 0.1, 	"writeable" => false),
+			Array("ident" => "TotalCurrent", 		"caption" => "Total Current", 				"type" => "Float", 		"profile" => "~Ampere.16", 			"oid" => '1.3.6.1.4.1.10418.17.2.5.3.1.50.1.1', 	"factor" => 0.1, 	"writeable" => false),
+			Array("ident" => "TotalPower", 			"caption" => "Total Power", 				"type" => "Float", 		"profile" => "~Watt.3680", 			"oid" => '1.3.6.1.4.1.10418.17.2.5.3.1.60.1.1', 	"factor" => 0.1, 	"writeable" => false),
+			Array("ident" => "TotalVoltage", 		"caption" => "Total Voltage", 				"type" => "Float", 		"profile" => "~Volt.230", 			"oid" => '1.3.6.1.4.1.10418.17.2.5.3.1.70.1.1', 	"factor" => false, 	"writeable" => false),
+			Array("ident" => "NumberOfOutlets", 	"caption" => "Number of Outlets", 			"type" => "Integer", 	"profile" => false, 				"oid" => '1.3.6.1.4.1.10418.17.2.5.3.1.8.1.1', 	"factor" => false, 	"writeable" => false),
+			Array("ident" => "ColdStartDelay", 		"caption" => "Cold Start Delay", 			"type" => "Integer", 	"profile" => "~TimePeriodSec.KNX", 	"oid" => '1.3.6.1.4.1.10418.17.2.5.3.1.42.1.1', 	"factor" => false, 	"writeable" => true ),
+			Array("ident" => "TotalEnergy", 		"caption" => "Total Energy", 				"type" => "Integer", 	"profile" => "~ActiveEnergy.KNX", 	"oid" => '1.3.6.1.4.1.10418.17.2.5.3.1.105.1.1', 	"factor" => false, 	"writeable" => false),
+			Array("ident" => "AlarmStatus", 		"caption" => "Alarm Status", 				"type" => "Integer", 	"profile" => "PM3000.AlarmState", 	"oid" => '1.3.6.1.4.1.10418.17.2.5.3.1.45.1.1', 	"factor" => false, 	"writeable" => false)
 		);
 	}
  
