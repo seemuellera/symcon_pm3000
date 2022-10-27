@@ -325,7 +325,7 @@ class PM3000Outlet extends IPSModule {
 		
 			if ($currentVariable['ident'] == $ident) {
 			
-				$oid = $currentVariable['oid'] . "." . $this->ReadPropertyInteger("OutletIndex");
+				$oid = '.' . $currentVariable['oid'] . "." . $this->ReadPropertyInteger("OutletIndex");
 				if ($currentVariable['type'] == 'String') {
 					
 					$type = 's';
