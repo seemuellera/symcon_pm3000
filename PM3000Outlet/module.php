@@ -149,6 +149,8 @@ class PM3000Outlet extends IPSModule {
 
 				$this->SetWriteableVariable($Ident, $Value);
 				SetValue($this->GetIDForIdent($Ident), $Value);
+
+				$this->RefreshInformation();
 				return;
 			}
 		}
