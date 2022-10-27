@@ -341,6 +341,7 @@ class PM3000Outlet extends IPSModule {
 			}
 		}
 
+		$this->LogMessage("Sending Value $value with Type $type to OID: $oid", "DEBUG");
 		IPSSNMP_WriteSNMPbyOID($this->ReadPropertyInteger("SnmpInstance"), $oid, $value, $type);		
 	}
 }
