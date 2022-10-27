@@ -141,6 +141,8 @@ class PM3000Outlet extends IPSModule {
 	
 		// Route values based on dynamic arrays
 		$writeableIdents = $this->GetWriteableVariableIdents();
+		$this->LogMessage("Found " . count($writeableIdents) . " writable idents","DEBUG");
+
 		if (count($writeableIdents) > 0) {
 
 			if (in_array($Ident, $writeableIdents)) {
