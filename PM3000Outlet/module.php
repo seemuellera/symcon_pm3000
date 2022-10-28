@@ -1,5 +1,10 @@
 <?php
 
+include_once __DIR__ . '/../libs/vendor/autoload.php';
+use FreeDSx\Snmp\SnmpClient;
+use FreeDSx\Snmp\Exception\SnmpRequestException;
+use FreeDSx\Snmp\Oid;
+
 // Klassendefinition
 class PM3000Outlet extends IPSModule {
  
@@ -37,6 +42,8 @@ class PM3000Outlet extends IPSModule {
 		$this->RegisterPropertyInteger("SnmpInstance",0);
 		$this->RegisterPropertyInteger("OutletIndex",0);
 		$this->RegisterPropertyBoolean("DebugOutput",false);
+		$this->RegisterPropertyString("Hostname","");
+		$this->RegisterPropertyString("Community","");
 
 		// Variable profiles
 		$variableProfilePowerStatus = "PM3000.PowerStatus";
@@ -179,6 +186,8 @@ class PM3000Outlet extends IPSModule {
 		$form['elements'][] = Array("type" => "NumberSpinner", "name" => "RefreshInterval", "caption" => "Refresh Interval");
 		$form['elements'][] = Array("type" => "CheckBox", "name" => "DebugOutput", "caption" => "Enable Debug Output");
 		$form['elements'][] = Array("type" => "SelectInstance", "name" => "SnmpInstance", "caption" => "SNMP instance");
+		$form['elements'][] = Array("type" => "ValidationTextBox", "name" => "Hostname", "caption" => "SNMP host");
+		$form['elements'][] = Array("type" => "ValidationTextBox", "name" => "Community", "caption" => "SNMP community");
 		$form['elements'][] = Array("type" => "NumberSpinner", "name" => "OutletIndex", "caption" => "Outlet Index");
 
 		// Add the buttons for the test center
@@ -325,7 +334,7 @@ class PM3000Outlet extends IPSModule {
 		
 			if ($currentVariable['ident'] == $ident) {
 			
-				$oid = '.' . $currentVariable['oid'] . "." . $this->ReadPropertyInteger("OutletIndex");
+				$oid = $currentVariable['oid'] . "." . $this->ReadPropertyInteger("OutletIndex");
 				if ($currentVariable['type'] == 'String') {
 					
 					$type = 's';
@@ -342,6 +351,33 @@ class PM3000Outlet extends IPSModule {
 		}
 
 		$this->LogMessage("Sending Value $value with Type $type to OID: $oid", "DEBUG");
-		IPSSNMP_WriteSNMPbyOID($this->ReadPropertyInteger("SnmpInstance"), $oid, $value, $type);		
+		// IPSSNMP_WriteSNMPbyOID($this->ReadPropertyInteger("SnmpInstance"), $oid, $value, $type);		
+		$snmp = $this->createSNMPClient();
+		try {
+
+			if ($type == 's') {
+
+				$snmp->set(Oid::fromString($oid, $value));
+			}
+			else {
+
+				$snmp->set(Oid::fromUnsignedInt($oid, $value));
+			}
+		} catch (SnmpRequestException $e) {
+		
+			$this->LogMessage("SNMP request failed " . $e->getMessage(), "ERROR");
+			return false;
+		}
 	}
+
+	private function createSNMPClient()
+    {
+        $configuration = [
+            'host'      => $this->ReadPropertyString('Hostname'),
+			'community' => $this->ReadPropertyString('Community'),
+            'version'   => 2,
+        ];
+        
+        return new SnmpClient($configuration);
+    }
 }
