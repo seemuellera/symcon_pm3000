@@ -365,7 +365,7 @@ class PM3000Outlet extends IPSModule {
 			}
 		} catch (SnmpRequestException $e) {
 		
-			$this->LogMessage("SNMP request failed " . $e->getMessage(), "ERROR");
+			$this->LogMessage("SNMP request failed " . $e->getMessage(), "CRIT");
 			return false;
 		}
 	}
