@@ -351,7 +351,7 @@ class PM3000Outlet extends IPSModule {
 		}
 
 		$this->LogMessage("Sending Value $value with Type $type to OID: $oid", "DEBUG");
-		// IPSSNMP_WriteSNMPbyOID($this->ReadPropertyInteger("SnmpInstance"), $oid, $value, $type);		
+		
 		$snmp = $this->createSNMPClient();
 		try {
 
@@ -361,6 +361,7 @@ class PM3000Outlet extends IPSModule {
 			}
 			else {
 
+				
 				$snmp->set(Oid::fromInteger($oid, $value));
 			}
 		} catch (SnmpRequestException $e) {
