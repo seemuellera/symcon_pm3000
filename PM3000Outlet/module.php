@@ -361,8 +361,7 @@ class PM3000Outlet extends IPSModule {
 			}
 			else {
 
-				// $snmp->set(Oid::fromUnsignedInt($oid, $value));
-				$snmp->set(Oid::fromString($oid, $value));
+				$snmp->set(Oid::fromInteger($oid, $value));
 			}
 		} catch (SnmpRequestException $e) {
 		
